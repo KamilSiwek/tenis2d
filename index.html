@@ -8,7 +8,23 @@
   <title>Tenis2D</title>
 </head>
 <body>
-  <canvas id='tenis-pool'></canvas>
+  <div class="area">
+    <canvas id='tenis-pool'></canvas>
+  </div>
+
+  <div id="score-board">
+    <div class="board-player">
+      <p>Player:</p>
+      <p class="score" id="AI-score">0</p>
+    </div>
+    <div class="board-ai">
+      <p>Computer:</p>
+      <p class="score" id="player-score">0</p>
+    </div>
+
+  </div>
+
+
   <script src="js/script.js"></script>
 </body>
 </html>
