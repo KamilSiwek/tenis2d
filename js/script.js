@@ -163,6 +163,7 @@ console.log(topCanvas);
 //Poruszanie graczem:
 function playerPosition(e){
   playerY = e.clientY - topCanvas - paddelHeight/2;
+  canvas.y = e.touches[0].screenY;
   if (playerY <= 0) {
     playerY = 0;
   }
