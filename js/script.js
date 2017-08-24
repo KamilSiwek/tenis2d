@@ -12,8 +12,11 @@ var cw = canvas.width;
 var ch = canvas.height;
 
 const ballSize = 20;
-let ballX = cw/2 - ballSize/2
-let ballY = ch/2 - ballSize/2
+// let ballX = cw/2 - ballSize/2;
+// let ballY = ch/2 - ballSize/2;
+
+
+
 
 const paddelWidth = 20;
 const paddelHeight = 100;
@@ -28,8 +31,13 @@ let aiY = 200;
 const centerLineWidth = 6;
 const centerLineHeight = 16;
 
-let ballSpeedX = 4;
-let ballSpeedY = 4;
+let ballSpeedX = 0;
+let ballSpeedY = 0;
+
+let ballX = playerX + ballSize;
+let ballY = playerY + ballSize;
+
+
 
 function player(){
   ctx.fillStyle= '#fff';
@@ -97,7 +105,7 @@ function ball() {
     // ballX = cw/2 - ballSize/2
     // ballY = ch/2 - ballSize/2
     ballX = playerX + ballSize
-    ballY = playerY
+    //ballY = playerY
     playerPkt += 1;
     // for(var i=0; i<pkt.length; i += 1) {
     //   pkt.length += 1;
@@ -112,16 +120,12 @@ function ball() {
     audio = new Audio();
     audio.src = "audio/brawa.wav"
     audio.play();
-
-
-
-    // ballX = cw/2 - ballSize/2
-    // ballY = ch/2 - ballSize/2
-    ballX = aiX - ballSize
+    //ballX = aiX - ballSize
+    ballX = playerX + ballSize
 
     aiPkt += 1;
     document.getElementById('AI-score').innerText=aiPkt.length;
-    ballY = aiY
+  //  ballY = aiY
   }
 //  var audio;
   if (ballX - ballSize == playerX && ballY > playerY && ballY < playerY + paddelHeight) { //Odbicie piłki od rakietki gracza
@@ -134,6 +138,7 @@ function ball() {
     //speedUp()
   }
   if (ballX + ballSize == aiX && ballY > aiY && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
+
     ballSpeedX = -ballSpeedX
     audio = new Audio();
     audio.src = "audio/odbicie2.wav"
@@ -168,10 +173,39 @@ function playerPosition(e){
 }
 
 canvas.addEventListener("mousemove", playerPosition);
+canvas.addEventListener("touchmove", playerPosition);
+
 
 //Ruch AI:
-function AIPosition(e){
-  aiY = ballY - paddelHeight/2;
+function AIPosition(){
+  var middleBall = ballY + ballSize/2;
+  var middlePaddel = aiY + paddelHeight/2;
+  //aiY = ballY - paddelHeight/2;
+  if(ballX > 500){
+    if(middlePaddel - middleBall > 200){
+      aiY -= 15;
+    }
+    else if (middlePaddel - middleBall > 50) {
+      aiY -= 10;
+    }
+    else if (middlePaddel - middleBall < -200) {
+      aiY += 15;
+    }
+    else if (middlePaddel - middleBall <-50) {
+      aiY += 10;
+    }
+  }
+  if (ballX <= 500 && ballX > 100) {
+     if (middlePaddel - middleBall > 100) {
+       aiY -= 30;
+     }
+     if (middlePaddel - middleBall < -100) {
+       aiY += 30;
+     }
+   }
+  // else if (ballX < 500){
+  //     aiY = ballX;
+  // }
   if (aiY <= 0) {
     aiY = 0;
   }
@@ -189,16 +223,50 @@ function serve(){
     audio.src = "audio/serw.wav"
     audio.play();
   }
-  if(ballX == aiX - ballSize){
+  // if(ballX == aiX - ballSize){
+  //   ballSpeedX = -4;
+  //   ballSpeedY = 4;
+  //   audio = new Audio();
+  //   audio.src = "audio/serw.wav"
+  //   audio.play();
+  // }
+}
+canvas.addEventListener("click", serve);
+
+// function test() {
+//   ballSpeedX = -4;
+//   ballSpeedY = 4;
+//   audio = new Audio();
+//   audio.src = "audio/serw.wav"
+//   audio.play();
+// }
+function serveAi() {
+  if(ballX == aiX - ballSize && ballSpeedY == 0){
     ballSpeedX = -4;
     ballSpeedY = 4;
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
-  }
-}
-canvas.addEventListener("click", serve);
+    // setTimeout(function test() {
+    //   ballSpeedX = -4;
+    //   ballSpeedY = 4;
+    //   audio = new Audio();
+    //   audio.src = "audio/serw.wav"
+    //   audio.play();
+    // }, 1000);
 
+    }
+  }
+
+function startBallPosition() {
+  if (ballSpeedX ==0 && ballSpeedY == 0) {
+      ballY = playerY
+    }
+}
+function opoznienie() {
+
+  console.log('opoznienie');
+}
 
 
 // var myScore;
@@ -215,6 +283,11 @@ function game(){
   player()
   ai()
   AIPosition()
+  startBallPosition()
+  serveAi()
+  //setTimeout(serveAi(), 5000);
+  // opoznienie()
   //score()
 }
-setInterval(game,10);
+
+    setInterval(game,10);
