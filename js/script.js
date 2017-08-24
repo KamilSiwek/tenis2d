@@ -1,8 +1,8 @@
 console.log('ready');
 
-const canvas = document.getElementById('tenis-pool');
+var canvas = document.getElementById('tenis-pool');
 
-const ctx = canvas.getContext('2d');
+var ctx = canvas.getContext('2d');
 
 var ww = window.innerWidth;
 
@@ -11,31 +11,31 @@ canvas.height = 400;
 var cw = canvas.width;
 var ch = canvas.height;
 
-const ballSize = 20;
+var ballSize = 20;
 // let ballX = cw/2 - ballSize/2;
 // let ballY = ch/2 - ballSize/2;
 
 
 
 
-const paddelWidth = 20;
-const paddelHeight = 100;
+var paddelWidth = 20;
+var paddelHeight = 100;
 
-const playerX = 0.1 * cw;
-const aiX = 0.9 * cw;
+var playerX = 0.1 * cw;
+var aiX = 0.9 * cw;
 
-let playerY = 200;
-let aiY = 200;
+var playerY = 200;
+var aiY = 200;
 
 
-const centerLineWidth = 6;
-const centerLineHeight = 16;
+var centerLineWidth = 6;
+var centerLineHeight = 16;
 
-let ballSpeedX = 0;
-let ballSpeedY = 0;
+var ballSpeedX = 0;
+var ballSpeedY = 0;
 
-let ballX = playerX + ballSize;
-let ballY = playerY + ballSize;
+var ballX = playerX + ballSize;
+var ballY = playerY + ballSize;
 
 
 
@@ -137,7 +137,7 @@ function ball() {
     }
     //speedUp()
   }
-  if (ballX + ballSize == aiX && ballY > aiY && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
+  if (ballX + ballSize == aiX && ballY > aiY - paddelHeight/2 && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
 
     ballSpeedX = -ballSpeedX
     audio = new Audio();
@@ -163,7 +163,7 @@ console.log(topCanvas);
 //Poruszanie graczem:
 function playerPosition(e){
   playerY = e.clientY - topCanvas - paddelHeight/2;
-  canvas.y = e.touches[0].screenY;
+//  canvas.y = e.touches[5].screenY;
   if (playerY <= 0) {
     playerY = 0;
   }
@@ -174,7 +174,7 @@ function playerPosition(e){
 }
 
 canvas.addEventListener("mousemove", playerPosition);
-canvas.addEventListener("touchmove", playerPosition);
+//canvas.addEventListener("touchmove", playerPosition);
 
 
 //Ruch AI:
@@ -184,13 +184,13 @@ function AIPosition(){
   //aiY = ballY - paddelHeight/2;
   if(ballX > 500){
     if(middlePaddel - middleBall > 200){
-      aiY -= 15;
+      aiY -= 30;
     }
     else if (middlePaddel - middleBall > 50) {
       aiY -= 10;
     }
     else if (middlePaddel - middleBall < -200) {
-      aiY += 15;
+      aiY += 30;
     }
     else if (middlePaddel - middleBall <-50) {
       aiY += 10;
