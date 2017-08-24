@@ -163,7 +163,7 @@ console.log(topCanvas);
 //Poruszanie graczem:
 function playerPosition(e){
   playerY = e.clientY - topCanvas - paddelHeight/2;
-//  canvas.y = e.touches[5].screenY;
+  //playerY = e.touches[1].screenY;
   if (playerY <= 0) {
     playerY = 0;
   }
@@ -174,7 +174,7 @@ function playerPosition(e){
 }
 
 canvas.addEventListener("mousemove", playerPosition);
-//canvas.addEventListener("touchmove", playerPosition);
+//window.addEventListener("touchmove", playerPosition);
 
 
 //Ruch AI:
