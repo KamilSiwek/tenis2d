@@ -310,8 +310,8 @@ function AIPosition(){
 //funkcja serwowania:
 function serve(){
   if(ballX == playerX + ballSize){
-    ballSpeedX = cw/500;
-    ballSpeedY = cw/500;
+    ballSpeedX = cw/100;
+    ballSpeedY = cw/100;
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
