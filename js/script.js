@@ -48,28 +48,6 @@ var ballSpeedY = 0;
 var ballX = playerX + ballSize;
 var ballY = playerY + ballSize;
 
-// var ballX = playerX;
-// var ballY = playerY -150;
-
-
-  //Wymiary i pozycja przycisków sterowania:
-// var buttonSize = cw * 0.1;
-// var buttonUpX = 0;
-// var buttonUpY = ch - buttonSize;
-// var buttonDownX = cw - buttonSize;
-// var buttonDownY = ch - buttonSize;
-
-
-
-  //Funkcja przycisków sterowania:
-// function buttonUp() {
-//   ctx.fillStyle = 'red';
-//   ctx.fillRect(buttonUpX, buttonUpY, buttonSize, buttonSize);
-// }
-// function buttonDown() {
-//   ctx.fillStyle = 'blue';
-//   ctx.fillRect(buttonDownX, buttonDownY, buttonSize, buttonSize);
-// }
 
 var upButton = document.getElementById('up');
 var downButton = document.getElementById('down');
@@ -77,21 +55,12 @@ function player(){
   ctx.fillStyle= '#fff';
   ctx.fillRect(playerX, playerY, paddelWidth, paddelHeight);
   playerY += playerSpeed;
-  //function up() {
-    // if(cw<= 700){
-    //   upButton.onclick = function(){
-    //     playerSpeed += 0.01;
-    //     playerY -= playerSpeed;
-    //   }
-
-      //console.log('up');
       if (playerY <= 0) {
         playerY = 0;
       }
       if (playerY >= ch - paddelHeight) {
             playerY = ch - paddelHeight
       }
-    //}
   }
 
 function up() {
@@ -118,7 +87,6 @@ function keyControl(e) {
   switch (e.keyCode) {
     case 38:
     playerSpeed = 0;
-    console.log('keyUp');
     if(ballSpeedX > 0){
       playerSpeed -= ballSpeedX/2;
     }
@@ -130,7 +98,6 @@ function keyControl(e) {
   switch (e.keyCode) {
     case 40:
     playerSpeed = 0;
-    console.log('keydown');
     if (ballSpeedX > 0) {
       playerSpeed += ballSpeedX/2;
     }
@@ -147,8 +114,6 @@ upButton.addEventListener("click", up);
 downButton.addEventListener("click", down);
 window.addEventListener("keydown", keyControl);
 
-//}
-//upButton.addEventListener("click", player);
 function ai(){
   ctx.fillStyle= '#fff';
   ctx.fillRect(aiX, aiY, paddelWidth, paddelHeight);
@@ -244,17 +209,12 @@ function ball() {
 
     speedUp()
   }
-  //return pkt;
 }
-console.log(ball());
 
 function speed() {
-  console.log(ballSpeedX);
-  console.log(ballSpeedY);
 }
 
 topCanvas = canvas.offsetTop;
-console.log(topCanvas);
 
 //Poruszanie graczem:
 function playerPosition(e){
@@ -333,13 +293,6 @@ function serveKey(e) {
 canvas.addEventListener("click", serve);
 window.addEventListener('keydown', serveKey);
 
-// function test() {
-//   ballSpeedX = -4;
-//   ballSpeedY = 4;
-//   audio = new Audio();
-//   audio.src = "audio/serw.wav"
-//   audio.play();
-// }
 function serveAi() {
   if(ballX == aiX - ballSize && ballSpeedY == 0){
     ballSpeedX = -4;
@@ -356,21 +309,10 @@ function startBallPosition() {
     }
 }
 
-
-
-// var myScore;
-//
-// function Score() {
-//   myScore = new component("30px", "Consolas", "white", 280, 40, "text");
-// }
-// Score()
 //Wywoływanie funkcji:
 
 function game(){
-  //wymiaryCanvas()
   pool()
-  // buttonUp()
-  // buttonDown()
   ball()
   player()
   ai()
