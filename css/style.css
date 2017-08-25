@@ -51,18 +51,25 @@ p{
   /*display: block;*/
 }
 .button{
-  background-color: rgb(70, 156, 232);
+  background-color: transparent;
   width: 15vw;
   height: 35vw;
   border: none;
-  transition: all 1s;
+
   /*border: solid 3px white;*/
 }
-.button:hover{
-  background-color: rgb(2, 84, 156);
+.button .fa{
+  font-size: 7vw;
+  color: #FFF;
+  transition: all 1s;
+}
+.button .fa:hover{
+  font-size: 9vw;;
+  /*background-color: rgb(2, 84, 156);*/
 }
 .button:focus{
   border: none;
+  font-size: 9vw;
 }
 #up{
 
