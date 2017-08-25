@@ -1,42 +1,71 @@
 console.log('ready');
 
+var cal = document.getElementById('b');
 var canvas = document.getElementById('tenis-pool');
+
 
 var ctx = canvas.getContext('2d');
 
-var ww = window.innerWidth;
 
-canvas.width = 800;
-canvas.height = 400;
+var ww = window.innerWidth;
+var wh = window.innerHeight;
+
+
+
+canvas.width = ww * 0.8;
+canvas.height = ww * 0.4;
 var cw = canvas.width;
 var ch = canvas.height;
 
-var ballSize = 20;
+var ballSize = cw/40;
 // let ballX = cw/2 - ballSize/2;
 // let ballY = ch/2 - ballSize/2;
 
 
 
-
-var paddelWidth = 20;
-var paddelHeight = 100;
+  //Wymiary i pozycja paletek:
+var paddelWidth = cw/40;
+var paddelHeight = ch/4;
 
 var playerX = 0.1 * cw;
-var aiX = 0.9 * cw;
+var aiX = 0.9 * cw - paddelWidth;
 
-var playerY = 200;
-var aiY = 200;
+var playerY = ch/2 - paddelHeight/2;
+var aiY = ch/2 - paddelHeight/2;
 
 
-var centerLineWidth = 6;
-var centerLineHeight = 16;
+var centerLineWidth = ww * 0.005;
+var centerLineHeight = ww * 0.015;
 
+  //Wymiary i pozycja początkowa piłki:
 var ballSpeedX = 0;
 var ballSpeedY = 0;
 
 var ballX = playerX + ballSize;
 var ballY = playerY + ballSize;
 
+// var ballX = playerX;
+// var ballY = playerY -150;
+
+
+  //Wymiary i pozycja przycisków sterowania:
+// var buttonSize = cw * 0.1;
+// var buttonUpX = 0;
+// var buttonUpY = ch - buttonSize;
+// var buttonDownX = cw - buttonSize;
+// var buttonDownY = ch - buttonSize;
+
+
+
+  //Funkcja przycisków sterowania:
+// function buttonUp() {
+//   ctx.fillStyle = 'red';
+//   ctx.fillRect(buttonUpX, buttonUpY, buttonSize, buttonSize);
+// }
+// function buttonDown() {
+//   ctx.fillStyle = 'blue';
+//   ctx.fillRect(buttonDownX, buttonDownY, buttonSize, buttonSize);
+// }
 
 
 function player(){
@@ -62,17 +91,19 @@ function pool() {
 //wywoływana gdy nastąpi zderzenie ze ścianą lub rakietką
 
    function speedUp() {
-     if (ballSpeedX > 0) {
-       ballSpeedX += .01;
+     if (ballSpeedX != 0){
+       if (ballSpeedX > 0) {
+         ballSpeedX += .3;
 
-     } else if (ballSpeedX < 0) {
-       ballSpeedX -= .01;
-     }
+       } else if (ballSpeedX < 0) {
+         ballSpeedX -= .3;
+       }
 
-     if (ballSpeedY > 0) {
-       ballSpeedY += .01;
-     } else {
-       ballSpeedY -= .01;
+       if (ballSpeedY > 0) {
+         ballSpeedY += .3;
+       } else {
+         ballSpeedY -= .3;
+       }
      }
    }
    //Punktacja:
@@ -94,6 +125,7 @@ function ball() {
 
   if (ballY <= 0 || ballY + ballSize >= ch) { //odbicie od góry lub od dołu
     ballSpeedY = -ballSpeedY;
+    speedUp()
   }
   if (ballX <= 0 ) { // przekroczenie lewej krawędzi
     // ballSpeedX = -ballSpeedX
@@ -128,16 +160,20 @@ function ball() {
   //  ballY = aiY
   }
 //  var audio;
-  if (ballX - ballSize == playerX && ballY > playerY && ballY < playerY + paddelHeight) { //Odbicie piłki od rakietki gracza
+  if (ballX  >= playerX && ballX  <= playerX + paddelWidth && ballY > playerY && ballY < playerY + paddelHeight) { //Odbicie piłki od rakietki gracza
     ballSpeedX = -ballSpeedX
     audio = new Audio();
     audio.src = "audio/odbicie1.wav"
     if (ballSpeedY != 0 && ballSpeedX!=0) {
       audio.play();
     }
-    //speedUp()
+  //  speedUp()
   }
-  if (ballX + ballSize == aiX && ballY > aiY - paddelHeight/2 && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
+  // if (ballX >= playerX && ballX < playerX + paddelWidth && ballY + ballSize >= playerY && ballY + ballSize <= playerY +paddelHeight
+  //   || ballX >= playerX && ballX < playerX + paddelWidth && ballY >= playerY && ballY<= playerY +paddelHeight){
+  //   ballSpeedY = -ballSpeedY;
+  // }
+  if (ballX + ballSize >= aiX && ballX <= aiX + paddelWidth && ballY > aiY - paddelHeight/8 && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
 
     ballSpeedX = -ballSpeedX
     audio = new Audio();
@@ -146,11 +182,16 @@ function ball() {
       audio.play();
     }
 
-    //speedUp()
+    speedUp()
   }
   //return pkt;
 }
 console.log(ball());
+
+function speed() {
+  console.log(ballSpeedX);
+  console.log(ballSpeedY);
+}
 
 
 
@@ -162,7 +203,11 @@ console.log(topCanvas);
 
 //Poruszanie graczem:
 function playerPosition(e){
-  playerY = e.clientY - topCanvas - paddelHeight/2;
+  if(cw > 700){
+    playerY = e.clientY - topCanvas - paddelHeight/2;
+  }
+
+
   //playerY = e.touches[1].screenY;
   if (playerY <= 0) {
     playerY = 0;
@@ -173,7 +218,24 @@ function playerPosition(e){
   //aiY=playerY;
 }
 
+function up() {
+  if(cw<= 700){
+    playerY -= 10;
+    console.log('up');
+  }
+}
+function down() {
+  if(cw<= 700){
+    playerY += 10;
+    console.log('down');
+  }
+}
+var upButton = document.getElementById('up');
+var downButton = document.getElementById('down');
+
 canvas.addEventListener("mousemove", playerPosition);
+upButton.addEventListener("click", up);
+downButton.addEventListener("click", down);
 //window.addEventListener("touchmove", playerPosition);
 
 
@@ -182,26 +244,26 @@ function AIPosition(){
   var middleBall = ballY + ballSize/2;
   var middlePaddel = aiY + paddelHeight/2;
   //aiY = ballY - paddelHeight/2;
-  if(ballX > 500){
-    if(middlePaddel - middleBall > 200){
-      aiY -= 30;
+  if(ballX > cw/2){
+    if(middlePaddel - middleBall > ch/3){
+      aiY -= cw/35;
     }
-    else if (middlePaddel - middleBall > 50) {
-      aiY -= 10;
+    else if (middlePaddel - middleBall > ch/10) {
+      aiY -= cw/80;
     }
-    else if (middlePaddel - middleBall < -200) {
-      aiY += 30;
+    else if (middlePaddel - middleBall < -(ch/3)) {
+      aiY += cw/35;
     }
-    else if (middlePaddel - middleBall <-50) {
-      aiY += 10;
+    else if (middlePaddel - middleBall < -(ch/10)) {
+      aiY += cw/80;
     }
   }
-  if (ballX <= 500 && ballX > 100) {
-     if (middlePaddel - middleBall > 100) {
-       aiY -= 30;
+  if (ballX <= cw/2 && ballX > cw/10) {
+     if (middlePaddel - middleBall > ch/4) {
+       aiY -= cw/300;
      }
-     if (middlePaddel - middleBall < -100) {
-       aiY += 30;
+     if (middlePaddel - middleBall < -(ch/10)) {
+       aiY += cw/300;
      }
    }
   // else if (ballX < 500){
@@ -218,8 +280,8 @@ function AIPosition(){
 //funkcja serwowania:
 function serve(){
   if(ballX == playerX + ballSize){
-    ballSpeedX = 4;
-    ballSpeedY = 4;
+    ballSpeedX = cw/500;
+    ballSpeedY = cw/500;
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
@@ -280,15 +342,18 @@ function opoznienie() {
 
 function game(){
   pool()
+  // buttonUp()
+  // buttonDown()
   ball()
   player()
   ai()
   AIPosition()
   startBallPosition()
   serveAi()
+  //speed()
   //setTimeout(serveAi(), 5000);
   // opoznienie()
   //score()
 }
 
-    setInterval(game,10);
+    setInterval(game,1000/60);

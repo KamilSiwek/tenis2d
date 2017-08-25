@@ -21,12 +21,22 @@ p{
 #score-board{
   text-align: center;
   top: 0;
-  position: absolute;
+  position: fixed;
+  z-index: 10;
   /*right: 50%;*/
   /*transform: translateX(-50%);*/
   border: solid 2px #FFF;
   margin: 10px auto auto 10px;
   padding: 0 5px;
+}
+@media (max-width: 768px)  {
+  #score-board div{
+    display: inline-block;
+  }
+  #score-board p{
+    font-size: 11px;
+  }
+
 }
 
 .score{
@@ -39,6 +49,17 @@ p{
 #player-score {
   /*text-align: center;*/
   /*display: block;*/
+}
+.button{
+  width: 9%;
+  height: 9vh;
+}
+#up{
+  background-color: red;
+}
+#down{
+  background-color: blue;
+  right: 0;
 }
 
 canvas{
