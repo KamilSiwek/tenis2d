@@ -7,11 +7,13 @@ var canvas = document.getElementById('tenis-pool');
 var ctx = canvas.getContext('2d');
 
 
+
 var ww = window.innerWidth;
 var wh = window.innerHeight;
 
+function wymiaryCanvas() {
 
-
+}
 canvas.width = ww * 0.8;
 canvas.height = ww * 0.4;
 var cw = canvas.width;
@@ -32,6 +34,8 @@ var aiX = 0.9 * cw - paddelWidth;
 
 var playerY = ch/2 - paddelHeight/2;
 var aiY = ch/2 - paddelHeight/2;
+
+var playerSpeed = 0;
 
 
 var centerLineWidth = ww * 0.005;
@@ -67,11 +71,39 @@ var ballY = playerY + ballSize;
 //   ctx.fillRect(buttonDownX, buttonDownY, buttonSize, buttonSize);
 // }
 
-
+var upButton = document.getElementById('up');
+var downButton = document.getElementById('down');
 function player(){
   ctx.fillStyle= '#fff';
   ctx.fillRect(playerX, playerY, paddelWidth, paddelHeight);
+  playerY += playerSpeed;
+  //function up() {
+    // if(cw<= 700){
+    //   upButton.onclick = function(){
+    //     playerSpeed += 0.01;
+    //     playerY -= playerSpeed;
+    //   }
+
+      //console.log('up');
+      if (playerY <= 0) {
+        playerY = 0;
+      }
+      if (playerY >= ch - paddelHeight) {
+            playerY = ch - paddelHeight
+      }
+    //}
+  }
+
+function up() {
+  playerSpeed -= 1;
 }
+function down() {
+  playerSpeed += 1;
+}
+  upButton.addEventListener("click", up);
+  downButton.addEventListener("click", down);
+//}
+//upButton.addEventListener("click", player);
 function ai(){
   ctx.fillStyle= '#fff';
   ctx.fillRect(aiX, aiY, paddelWidth, paddelHeight);
@@ -218,24 +250,28 @@ function playerPosition(e){
   //aiY=playerY;
 }
 
-function up() {
-  if(cw<= 700){
-    playerY -= 10;
-    console.log('up');
-  }
-}
-function down() {
-  if(cw<= 700){
-    playerY += 10;
-    console.log('down');
-  }
-}
-var upButton = document.getElementById('up');
-var downButton = document.getElementById('down');
+// function up() {
+//   if(cw<= 700){
+//     playerSpeed += 10;
+//     playerY -= playerSpeed;
+//     console.log('up');
+//   }
+// }
+// function down() {
+//   if(cw<= 700){
+//     playerY += 10;
+//     console.log('down');
+//   }
+// }
+// var upButton = document.getElementById('up');
+// var downButton = document.getElementById('down');
 
 canvas.addEventListener("mousemove", playerPosition);
-upButton.addEventListener("click", up);
-downButton.addEventListener("click", down);
+
+  // upButton.addEventListener("click", up);
+
+
+// downButton.addEventListener("mousedown", down);
 //window.addEventListener("touchmove", playerPosition);
 
 
@@ -310,14 +346,6 @@ function serveAi() {
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
-    // setTimeout(function test() {
-    //   ballSpeedX = -4;
-    //   ballSpeedY = 4;
-    //   audio = new Audio();
-    //   audio.src = "audio/serw.wav"
-    //   audio.play();
-    // }, 1000);
-
     }
   }
 
@@ -326,10 +354,7 @@ function startBallPosition() {
       ballY = playerY
     }
 }
-function opoznienie() {
 
-  console.log('opoznienie');
-}
 
 
 // var myScore;
@@ -341,6 +366,7 @@ function opoznienie() {
 //Wywoływanie funkcji:
 
 function game(){
+  //wymiaryCanvas()
   pool()
   // buttonUp()
   // buttonDown()
@@ -350,10 +376,6 @@ function game(){
   AIPosition()
   startBallPosition()
   serveAi()
-  //speed()
-  //setTimeout(serveAi(), 5000);
-  // opoznienie()
-  //score()
 }
 
     setInterval(game,1000/60);
