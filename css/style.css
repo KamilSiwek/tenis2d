@@ -51,14 +51,21 @@ p{
   /*display: block;*/
 }
 .button{
-  width: 9%;
-  height: 9vh;
+  background-color: rgb(70, 156, 232);
+  width: 15vw;
+  height: 35vw;
+  border: none;
+  transition: all 1s;
+  /*border: solid 3px white;*/
+}
+.button:hover{
+  background-color: rgb(2, 84, 156);
 }
 #up{
-  background-color: red;
+
 }
 #down{
-  background-color: blue;
+
   right: 0;
 }
 
