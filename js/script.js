@@ -239,16 +239,16 @@ function AIPosition(){
   var middlePaddel = aiY + paddelHeight/2;
   if(ballX > cw/2){
     if(middlePaddel - middleBall > ch/3){
-      aiY -= cw/35;
+      aiY -= cw/45;
     }
     else if (middlePaddel - middleBall > ch/10) {
-      aiY -= cw/80;
+      aiY -= cw/90;
     }
     else if (middlePaddel - middleBall < -(ch/3)) {
-      aiY += cw/35;
+      aiY += cw/45;
     }
     else if (middlePaddel - middleBall < -(ch/10)) {
-      aiY += cw/80;
+      aiY += cw/90;
     }
   }
   if (ballX <= cw/2 && ballX > cw/10) {
