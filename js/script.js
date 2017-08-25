@@ -66,19 +66,19 @@ function player(){
 function up() {
   playerSpeed = 0;
   if(ballSpeedX > 0){
-    playerSpeed -= ballSpeedX/2;
+    playerSpeed -= ballSpeedX/1.5;
   }
   if (ballSpeedX < 0) {
-    playerSpeed += ballSpeedX/2;
+    playerSpeed += ballSpeedX/1.5;
   }
 }
 function down() {
   playerSpeed = 0;
   if (ballSpeedX > 0) {
-    playerSpeed += ballSpeedX/2;
+    playerSpeed += ballSpeedX/1.5;
   }
   if (ballSpeedX < 0) {
-    playerSpeed -= ballSpeedX/2;
+    playerSpeed -= ballSpeedX/1.5;
   }
 
 }
@@ -88,10 +88,10 @@ function keyControl(e) {
     case 38:
     playerSpeed = 0;
     if(ballSpeedX > 0){
-      playerSpeed -= ballSpeedX/2;
+      playerSpeed -= ballSpeedX/1.5;
     }
     if (ballSpeedX < 0) {
-      playerSpeed += ballSpeedX/2;
+      playerSpeed += ballSpeedX/1.5;
     }
       break;
   }
@@ -99,10 +99,10 @@ function keyControl(e) {
     case 40:
     playerSpeed = 0;
     if (ballSpeedX > 0) {
-      playerSpeed += ballSpeedX/2;
+      playerSpeed += ballSpeedX/1.5;
     }
     if (ballSpeedX < 0) {
-      playerSpeed -= ballSpeedX/2;
+      playerSpeed -= ballSpeedX/1.5;
     }
       break;
   }
