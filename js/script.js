@@ -65,20 +65,20 @@ function player(){
 
 function up() {
   playerSpeed = 0;
-  if(ballSpeedX > 0){
-    playerSpeed -= ballSpeedX/1.5;
+  if(ballSpeedY > 0){
+    playerSpeed -= ballSpeedY;//1.5;
   }
-  if (ballSpeedX < 0) {
-    playerSpeed += ballSpeedX/1.5;
+  if (ballSpeedY < 0) {
+    playerSpeed += ballSpeedY;//1.5;
   }
 }
 function down() {
   playerSpeed = 0;
-  if (ballSpeedX > 0) {
-    playerSpeed += ballSpeedX/1.5;
+  if (ballSpeedY > 0) {
+    playerSpeed += ballSpeedY;//1.5;
   }
-  if (ballSpeedX < 0) {
-    playerSpeed -= ballSpeedX/1.5;
+  if (ballSpeedY < 0) {
+    playerSpeed -= ballSpeedY;//1.5;
   }
 
 }
@@ -87,22 +87,22 @@ function keyControl(e) {
   switch (e.keyCode) {
     case 38:
     playerSpeed = 0;
-    if(ballSpeedX > 0){
-      playerSpeed -= ballSpeedX/1.5;
+    if(ballSpeedY > 0){
+      playerSpeed -= ballSpeedY;//1.5;
     }
-    if (ballSpeedX < 0) {
-      playerSpeed += ballSpeedX/1.5;
+    if (ballSpeedY < 0) {
+      playerSpeed += ballSpeedY;//1.5;
     }
       break;
   }
   switch (e.keyCode) {
     case 40:
     playerSpeed = 0;
-    if (ballSpeedX > 0) {
-      playerSpeed += ballSpeedX/1.5;
+    if (ballSpeedY > 0) {
+      playerSpeed += ballSpeedY;//1.5;
     }
-    if (ballSpeedX < 0) {
-      playerSpeed -= ballSpeedX/1.5;
+    if (ballSpeedY < 0) {
+      playerSpeed -= ballSpeedY;//1.5;
     }
       break;
   }
@@ -270,8 +270,8 @@ function AIPosition(){
 //funkcja serwowania:
 function serve(){
   if(ballX == playerX + ballSize){
-    ballSpeedX = cw/200;
-    ballSpeedY = cw/200;
+    ballSpeedX = cw/500;
+    ballSpeedY = cw/500;
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
@@ -281,8 +281,8 @@ function serveKey(e) {
   switch (e.keyCode) {
     case 32:
     if(ballX == playerX + ballSize){
-      ballSpeedX = cw/200;
-      ballSpeedY = cw/200;
+      ballSpeedX = cw/500;
+      ballSpeedY = cw/500;
       audio = new Audio();
       audio.src = "audio/serw.wav"
       audio.play();
