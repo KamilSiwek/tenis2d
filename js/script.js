@@ -182,7 +182,7 @@ function ball() {
     ballSpeedY = 0
     audio = new Audio();
     audio.src = "audio/brawa.wav"
-    audio.play();e
+    audio.play();
     ballX = playerX + ballSize
 
     aiPkt += 1;
@@ -270,8 +270,8 @@ function AIPosition(){
 //funkcja serwowania:
 function serve(){
   if(ballX == playerX + ballSize){
-    ballSpeedX = cw/500;
-    ballSpeedY = cw/500;
+    ballSpeedX = cw/200;
+    ballSpeedY = cw/200;
     audio = new Audio();
     audio.src = "audio/serw.wav"
     audio.play();
@@ -281,8 +281,8 @@ function serveKey(e) {
   switch (e.keyCode) {
     case 32:
     if(ballX == playerX + ballSize){
-      ballSpeedX = cw/500;
-      ballSpeedY = cw/500;
+      ballSpeedX = cw/200;
+      ballSpeedY = cw/200;
       audio = new Audio();
       audio.src = "audio/serw.wav"
       audio.play();
