@@ -239,16 +239,16 @@ function AIPosition(){
   var middlePaddel = aiY + paddelHeight/2;
   if(ballX > cw/2){
     if(middlePaddel - middleBall > ch/3){
-      aiY -= cw/45;
+      aiY -= cw/65; //poziom inteligencji - im większy dzilnik, tym głupszy komputer.
     }
     else if (middlePaddel - middleBall > ch/10) {
-      aiY -= cw/90;
+      aiY -= cw/110;
     }
     else if (middlePaddel - middleBall < -(ch/3)) {
-      aiY += cw/45;
+      aiY += cw/65;
     }
     else if (middlePaddel - middleBall < -(ch/10)) {
-      aiY += cw/90;
+      aiY += cw/110;
     }
   }
   if (ballX <= cw/2 && ballX > cw/10) {
