@@ -11,32 +11,23 @@ var ctx = canvas.getContext('2d');
 var ww = window.innerWidth;
 var wh = window.innerHeight;
 
-function wymiaryCanvas() {
-
-}
 canvas.width = ww * 0.7;
 canvas.height = ww * 0.35;
 var cw = canvas.width;
 var ch = canvas.height;
-
 var ballSize = cw/40;
-// let ballX = cw/2 - ballSize/2;
-// let ballY = ch/2 - ballSize/2;
-
-
 
   //Wymiary i pozycja paletek:
-var paddelWidth = cw/40;
-var paddelHeight = ch/4;
+var paddleWidth = cw/40;
+var paddleHeight = ch/4;
 
 var playerX = 0.1 * cw;
-var aiX = 0.9 * cw - paddelWidth;
+var aiX = 0.9 * cw - paddleWidth;
 
-var playerY = ch/2 - paddelHeight/2;
-var aiY = ch/2 - paddelHeight/2;
+var playerY = ch/2 - paddleHeight/2;
+var aiY = ch/2 - paddleHeight/2;
 
 var playerSpeed = 0;
-
 
 var centerLineWidth = ww * 0.005;
 var centerLineHeight = ww * 0.015;
@@ -53,13 +44,13 @@ var upButton = document.getElementById('up');
 var downButton = document.getElementById('down');
 function player(){
   ctx.fillStyle= '#fff';
-  ctx.fillRect(playerX, playerY, paddelWidth, paddelHeight);
+  ctx.fillRect(playerX, playerY, paddleWidth, paddleHeight);
   playerY += playerSpeed;
       if (playerY <= 0) {
         playerY = 0;
       }
-      if (playerY >= ch - paddelHeight) {
-            playerY = ch - paddelHeight
+      if (playerY >= ch - paddleHeight) {
+            playerY = ch - paddleHeight
       }
   }
 
@@ -116,7 +107,7 @@ window.addEventListener("keydown", keyControl);
 
 function ai(){
   ctx.fillStyle= '#fff';
-  ctx.fillRect(aiX, aiY, paddelWidth, paddelHeight);
+  ctx.fillRect(aiX, aiY, paddleWidth, paddleHeight);
 }
 
 function pool() {
@@ -189,7 +180,7 @@ function ball() {
     document.getElementById('AI-score').innerText=aiPkt.length;
   }
 //  var audio;
-  if (ballX  >= playerX && ballX  <= playerX + paddelWidth && ballY > playerY && ballY < playerY + paddelHeight) { //Odbicie piłki od rakietki gracza
+  if (ballX  >= playerX && ballX  <= playerX + paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) { //Odbicie piłki od rakietki gracza
     ballSpeedX = -ballSpeedX
     audio = new Audio();
     audio.src = "audio/odbicie1.wav"
@@ -198,7 +189,7 @@ function ball() {
     }
   //  speedUp()
   }
-  if (ballX + ballSize >= aiX && ballX <= aiX + paddelWidth && ballY > aiY - paddelHeight/8 && ballY < aiY + paddelHeight) { // Odbicie piłki od rakietki AI
+  if (ballX + ballSize >= aiX && ballX <= aiX + paddleWidth && ballY > aiY - paddleHeight/8 && ballY < aiY + paddleHeight) { // Odbicie piłki od rakietki AI
 
     ballSpeedX = -ballSpeedX
     audio = new Audio();
@@ -219,15 +210,15 @@ topCanvas = canvas.offsetTop;
 //Poruszanie graczem:
 function playerPosition(e){
   if(cw > 700){
-    playerY = e.clientY - topCanvas - paddelHeight/2;
+    playerY = e.clientY - topCanvas - paddleHeight/2;
   }
 
   //playerY = e.touches[1].screenY;
   if (playerY <= 0) {
     playerY = 0;
   }
-  if (playerY >= ch - paddelHeight) {
-        playerY = ch - paddelHeight
+  if (playerY >= ch - paddleHeight) {
+        playerY = ch - paddleHeight
   }
 }
 
@@ -236,34 +227,34 @@ canvas.addEventListener("mousemove", playerPosition);
 //Ruch AI:
 function AIPosition(){
   var middleBall = ballY + ballSize/2;
-  var middlePaddel = aiY + paddelHeight/2;
+  var middlePaddle = aiY + paddleHeight/2;
   if(ballX > cw/2){
-    if(middlePaddel - middleBall > ch/3){
+    if(middlePaddle - middleBall > ch/3){
       aiY -= cw/65; //poziom inteligencji - im większy dzilnik, tym głupszy komputer.
     }
-    else if (middlePaddel - middleBall > ch/10) {
+    else if (middlePaddle - middleBall > ch/10) {
       aiY -= cw/110;
     }
-    else if (middlePaddel - middleBall < -(ch/3)) {
+    else if (middlePaddle - middleBall < -(ch/3)) {
       aiY += cw/65;
     }
-    else if (middlePaddel - middleBall < -(ch/10)) {
+    else if (middlePaddle - middleBall < -(ch/10)) {
       aiY += cw/110;
     }
   }
   if (ballX <= cw/2 && ballX > cw/10) {
-     if (middlePaddel - middleBall > ch/4) {
+     if (middlePaddle - middleBall > ch/4) {
        aiY -= cw/300;
      }
-     if (middlePaddel - middleBall < -(ch/10)) {
+     if (middlePaddle - middleBall < -(ch/10)) {
        aiY += cw/300;
      }
    }
   if (aiY <= 0) {
     aiY = 0;
   }
-  if (aiY >= ch - paddelHeight) {
-        aiY = ch - paddelHeight
+  if (aiY >= ch - paddleHeight) {
+        aiY = ch - paddleHeight
   }
 }
 
